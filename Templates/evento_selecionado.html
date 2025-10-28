@@ -1,0 +1,116 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Evento_selecionado</title>
+</head>
+<body>
+    <!-- A ideia é fazer uma página estática para todos os eventos possiveis usar apenas uma forma
+     e só trocar os conteúdos-->
+     <header>
+        <div class="header-content">
+            <a href="#" class="logo">EVENT2U</a>
+            <nav>
+                <ul>
+                    <li><a href="#">Menu ingressos</a></li>
+                    <li><a href="#">Meu perfil</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>        
+        <div class="container-cabecalho-evento">
+            <div class="info-evento">
+                <div class="lista-main-info">
+                    <h1><span id="titulo-evento">MidNight</span></h1>
+                    <span id="data-horario">23 de out. de 2027 - 20h00 até 06h00</span>
+                </div> 
+            </div>            
+            <div class="imagem-evento">
+                <img id="foto-evento" src="https://static-cse.canva.com/blob/1534622/eventocorporativo1.45438858.jpg">
+            </div>  
+        </div>
+
+        <div class="descricao-evento">
+            <h2>Descrição do evento</h2>
+            <br>
+            <div class="container-evento">
+                <ul class="informacoes-evento">
+                    <li> <span class="info-bold">Data: </span> <span class= "desc-data-local" id="data-horario">18 de Outubro, 23h30 - 06h00</span></li>
+                    <li><span class="info-bold">Local: </span> <span class= "desc-data-local" id="local-evento">Galpão de Eventos, Rua das Industrias, 1234, Campo Grande - MS</span></li>
+                    <br>
+                    <li><span id="texto-descricao-evento">Prepare-se para uma noite em que o 
+                        techno encontra a melodia e a energia domina a pista de dança. 
+                        A Midnight Symphony é uma experiência sensorial completa, onde 
+                        os graves pulsantes e a iluminação hipnótica se fundem para 
+                        criar um ambiente de pura euforia. Das batidas minimalistas 
+                        ao techno melódico, a noite será uma jornada sonora inesquecível, 
+                        liderada por um dos nomes mais promissores da cena eletrônica.</span>
+                    </li>
+                    <br>
+                </ul>
+
+                <div class="caixa-ingresso">
+                    <p><span id="ingressos-restantes">14</span> ingresso(s) restante(s)</p>
+                    <!-- Definir no onclick do abrirPopup() direção da página-->
+                    <button class="botao-comprar" onclick="abrirPopup()">Comprar ingresso</button>
+                </div>
+
+                
+                <br>
+            </div>  
+
+            <!-- quebra de linha com travessão-->
+            <br>
+            <hr>
+            <br>
+
+            <div class="mapa-evento">    
+                <h2>Localização do evento</h2>
+                <br>
+                <iframe id="mapa-interativo-evento"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3750.706981183684!2d-44.0586403!3d-19.936749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa695762db24dc7%3A0xb945aec369ca6d69!2sR.%20das%20Ind%C3%BAstrias%2C%201234%20-%20Novo%20Eldorado%2C%20Contagem%20-%20MG%2C%2032341-490!5e0!3m2!1spt-BR!2sbr!4v1760921467811!5m2!1spt-BR!2sbr" 
+                    width="600" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                    
+            </div>
+        </div>
+
+    </main>     
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sobre o Event2U</h3>
+                    <p>Plataforma completa para criação e gestão de eventos. Conectamos organizadores e participantes de forma simples e eficiente.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <a href="#">Como funciona</a>
+                    <a href="#">Preços</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contato</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Suporte</h3>
+                    <a href="#">Central de Ajuda</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Event2U. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+     <script src="script.js"></script>
+</body>
+</html>

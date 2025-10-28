@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra de Ingressos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="popup-container">
+        <div class="popup-header">
+            <h2>Compra de Ingressos</h2>
+        </div>
+        
+        <div class="popup-content">
+            <div class="ticket-option">
+                <div class="ticket-info">
+                    <div class="ticket-name">Ingresso meia</div>
+                    <div class="ticket-price">R$ 25,50</div>
+                    <div class="ticket-tax">(+ R$ 0,50 taxa)</div>
+                </div>
+                <div class="ticket-controls">
+                    <button class="quantity-btn minus" data-type="meia">-</button>
+                    <span class="quantity" id="qty-meia">0</span>
+                    <button class="quantity-btn plus" data-type="meia">+</button>
+                </div>
+            </div>
+            
+            <div class="ticket-option">
+                <div class="ticket-info">
+                    <div class="ticket-name">Ingresso inteira</div>
+                    <div class="ticket-price">R$ 50,00</div>
+                    <div class="ticket-tax">(+ R$ 1,00 taxa)</div>
+                </div>
+                <div class="ticket-controls">
+                    <button class="quantity-btn minus" data-type="inteira">-</button>
+                    <span class="quantity" id="qty-inteira">0</span>
+                    <button class="quantity-btn plus" data-type="inteira">+</button>
+                </div>
+            </div>
+            
+            <div class="total-section">
+                <div class="total-label">Total:</div>
+                <div class="total-value" id="total-value">R$ 0,00</div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="confirm-btn">Confirmar Compra</button>
+                <button class="btn btn-secondary" id="cancel-btn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
