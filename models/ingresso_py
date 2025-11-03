@@ -1,0 +1,20 @@
+#import app from db
+from .base import Base
+
+#criei a classe tornando como entidade forte, sem chave composta
+# ver quais cuidades implicam isso, segundo as regras de negócio "ingresso existe sem ingresso" 
+class Ingresso(Base):
+    __tablename__ = 'ingresso'
+
+    numero = Column(Integer, primary_key=True, autoincrement=True)
+    valor = Column(Float, nullable= False)
+    tipo = Column(String(7), default='inteira', nullable= False)
+    venda_disponivel = Column(Boolean, default= True, nullable= False)
+    evento_id = Column(Integer, ForeignKey=('evento.id'), nullable= False)
+
+    ''' def verificarStatus():
+        for i in compra_ingresso:
+            if compra_ingresso.id == id:
+                return self.venda_disponivel
+            '''
+        
