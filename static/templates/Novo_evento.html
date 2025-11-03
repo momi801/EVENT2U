@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Evento - Event2U</title>
+
+    <!-- Link para o CSS externo -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/criar_evento.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/Novo_evento.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Event<span>2U</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Meus Eventos</a></li>
+                    </ul>
+                </nav>
+                <div class="user-menu">
+                    <img src="https://ui-avatars.com/api/?name=Organizador&background=632024&color=fff" alt="Usuário">
+                    <span>Organizador</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>Menu do Organizador</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Meus Eventos</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-plus-circle"></i> Criar Evento</a></li>
+                </ul>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="page-header">
+                    <h1>Criar Novo Evento</h1>
+                    <button class="btn btn-outline"><i class="fas fa-arrow-left"></i> Voltar</button>
+                </div>
+
+                <div class="form-container">
+                    <form id="eventForm">
+                        <!-- Informações Básicas -->
+                        <div class="form-section">
+                            <h2><i class="fas fa-info-circle"></i> Informações Básicas</h2>
+                            
+                            <div class="form-group">
+                                <label for="eventName">Nome do Evento *</label>
+                                <input type="text" id="eventName" class="form-control" placeholder="Ex: Conferência de Tecnologia 2023" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="eventDescription">Descrição do Evento *</label>
+                                <textarea id="eventDescription" class="form-control" placeholder="Descreva seu evento..." required></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="eventCategory">Categoria *</label>
+                                    <select id="eventCategory" class="form-control" required>
+                                        <option value="">Selecione uma categoria</option>
+                                        <option value="tecnologia">Tecnologia</option>
+                                        <option value="negocios">Negócios</option>
+                                        <option value="musica">Música</option>
+                                        <option value="arte">Arte & Cultura</option>
+                                        <option value="esportes">Esportes</option>
+                                        <option value="educacao">Educação</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="eventType">Tipo de Evento *</label>
+                                    <select id="eventType" class="form-control" required>
+                                        <option value="">Selecione o tipo</option>
+                                        <option value="presencial">Presencial</option>
+                                        <option value="online">Online</option>
+                                        <option value="hibrido">Híbrido</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data e Local -->
+                        <div class="form-section">
+                            <h2><i class="fas fa-calendar-alt"></i> Data e Local</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="eventStartDate">Data de Início *</label>
+                                    <input type="datetime-local" id="eventStartDate" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="eventEndDate">Data de Término *</label>
+                                    <input type="datetime-local" id="eventEndDate" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group" id="locationField">
+                                <label for="eventLocation">Local do Evento *</label>
+                                <input type="text" id="eventLocation" class="form-control" placeholder="Endereço completo ou link online">
+                            </div>
+                        </div>
+
+                        <!-- Imagem -->
+                        <div class="form-section">
+                            <h2><i class="fas fa-image"></i> Imagem do Evento</h2>
+                            <div class="image-upload" id="imageUpload">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Clique para fazer upload da imagem do evento</p>
+                                <span>Recomendado: 1200x600 pixels</span>
+                            </div>
+                            <div class="image-preview" id="imagePreview">
+                                <img src="" alt="Prévia da imagem">
+                                <p><button type="button" class="btn-outline" id="changeImage">Alterar Imagem</button></p>
+                            </div>
+                            <input type="file" id="eventImage" accept="image/*" style="display: none;">
+                        </div>
+
+                        <!-- Ingressos -->
+                        <div class="form-section">
+                            <h2><i class="fas fa-ticket-alt"></i> Ingressos</h2>
+                            <div class="ticket-types" id="ticketTypes">
+                                <div class="ticket-type">
+                                    <div class="ticket-header">
+                                        <span class="ticket-title">Ingresso Padrão</span>
+                                        <button type="button" class="remove-ticket"><i class="fas fa-times"></i></button>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Nome</label>
+                                            <input type="text" class="form-control" value="Ingresso Padrão">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Preço (R$)</label>
+                                            <input type="number" class="form-control" value="0.00" min="0" step="0.01">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Quantidade</label>
+                                            <input type="number" class="form-control" value="100" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-outline" id="addTicketType">
+                                <i class="fas fa-plus"></i> Adicionar Tipo de Ingresso
+                            </button>
+                        </div>
+
+                        <!-- Configurações -->
+                        <div class="form-section">
+                            <h2><i class="fas fa-cog"></i> Configurações Adicionais</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="eventCapacity">Capacidade Máxima</label>
+                                    <input type="number" id="eventCapacity" class="form-control" min="0" placeholder="Ilimitado se vazio">
+                                </div>
+                                <div class="form-group">
+                                    <label for="eventVisibility">Visibilidade</label>
+                                    <select id="eventVisibility" class="form-control">
+                                        <option value="public">Público</option>
+                                        <option value="private">Privado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ações -->
+                        <div class="form-actions">
+                            <button type="button" class="btn-outline">Salvar como Rascunho</button>
+                            <button type="submit" class="btn">Criar Evento</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sobre o Event2U</h3>
+                    <p>Plataforma completa para criação e gestão de eventos.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <a href="#">Como funciona</a>
+                    <a href="#">Preços</a>
+                    <a href="#">Contato</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Suporte</h3>
+                    <a href="#">Ajuda</a>
+                    <a href="#">Privacidade</a>
+                    <a href="#">Termos</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Event2U. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script - Falta criar um novo script pra ele-->
+    <script src="{{ url_for('static', filename='js/criar_evento.js') }}"></script>
+    
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Ingressos - EVENT2U</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/meus_ingressos.css') }}">
+    <link rel="stylesheet" href="/static/css/Meus_eventos.css">
+</head>
+<body>
+    <div class="header">
+        EVENT2U
+    </div>
+    
+    <div class="container">
+        <div class="ticket">
+            <div class="ticket-header">
+                <div class="ticket-title">Festival de Música 2025</div>
+                <div class="status confirmed">Confirmado</div>
+            </div>
+            <div class="ticket-body">
+                <div class="ticket-info">
+                    <span><strong>Nº Ingresso:</strong> 20250001</span>
+                    <span><strong>Categoria:</strong> Pista</span>
+                </div>
+                <div class="ticket-info">
+                    <span><strong>Data:</strong> 20/09/2025 a 30/09/2025</span>
+                    <span><strong>Horário:</strong> 18h às 02h</span>
+                </div>
+                <div class="ticket-info">
+                    <span><strong>Local:</strong> Parque de Exposições</span>
+                    <span><strong>Lote:</strong> 3º Lote</span>
+                </div>
+                <div class="ticket-details">
+                    <div class="ticket-info">
+                        <span><strong>Nome:</strong> João Silva</span>
+                        <span><strong>CPF:</strong> 123.456.789-00</span>
+                    </div>
+                    <div class="ticket-info">
+                        <span><strong>Forma de Pagamento:</strong> Cartão de Crédito</span>
+                        <span><strong>Parcelas:</strong> 3x</span>
+                    </div>
+                </div>
+                <div class="ticket-qr">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=EVENT2U-20250001" alt="QR Code do ingresso">
+                    <p><strong>Código do ingresso:</strong> EVENT2U-20250001</p>
+                </div>
+                <button class="cancel-btn">Cancelar Inscrição</button>
+                <div class="ticket-info">
+                    <span><strong>Valor Total:</strong> R$ 150,00</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ticket">
+            <div class="ticket-header">
+                <div class="ticket-title">Workshop de Tecnologia</div>
+                <div class="status cancelled">Cancelado</div>
+            </div>
+            <div class="ticket-body">
+                <div class="ticket-info">
+                    <span><strong>Nº Ingresso:</strong> 20240022</span>
+                    <span><strong>Categoria:</strong> Participante</span>
+                </div>
+                <div class="ticket-info">
+                    <span><strong>Data:</strong> 20/01/2024 a 20/01/2024</span>
+                    <span><strong>Horário:</strong> 09h às 17h</span>
+                </div>
+                <div class="ticket-info">
+                    <span><strong>Local:</strong> Centro de Convenções</span>
+                    <span><strong>Lote:</strong> 1º Lote</span>
+                </div>
+                <div class="ticket-details">
+                    <div class="ticket-info">
+                        <span><strong>Nome:</strong> João Silva</span>
+                        <span><strong>CPF:</strong> 123.456.789-00</span>
+                    </div>
+                    <div class="ticket-info">
+                        <span><strong>Forma de Pagamento:</strong> PIX</span>
+                        <span><strong>Status do reembolso:</strong> Processado</span>
+                    </div>
+                </div>
+                <div class="ticket-info">
+                    <span><strong>Valor Total:</strong> R$ 0,00</span>
+                    <span><strong>Valor reembolsado:</strong> R$ 80,00</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ticket">
+            <div class="ticket-header">
+                <div class="ticket-title">Feira de Gastronomia</div>
+                <div class="status confirmed">Confirmado</div>
+            </div>
+            <div class="ticket-body">
+                <div class="ticket-info">
+                    <span><strong>Nº Ingresso:</strong> 20250045</span>
+                    <span><strong>Categoria:</strong> VIP</span>
+                </div>
+                <div class="ticket-info">
+                    <span><strong>Data:</strong> 15/10/2025 a 17/10/2025</span>
+                    <span><strong>Horário:</strong> 14h às 22h</span>
+                </div>
+                <div class="ticket-info">
+                    <span><strong>Local:</strong> Pavilhão de Eventos</span>
+                    <span><strong>Lote:</strong> 2º Lote</span>
+                </div>
+                <div class="ticket-details">
+                    <div class="ticket-info">
+                        <span><strong>Nome:</strong> João Silva</span>
+                        <span><strong>CPF:</strong> 123.456.789-00</span>
+                    </div>
+                    <div class="ticket-info">
+                        <span><strong>Forma de Pagamento:</strong> Cartão de Débito</span>
+                        <span><strong>Parcelas:</strong> À vista</span>
+                    </div>
+                </div>
+                <div class="ticket-qr">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=EVENT2U-20250045" alt="QR Code do ingresso">
+                    <p><strong>Código do ingresso:</strong> EVENT2U-20250045</p>
+                </div>
+                <button class="cancel-btn">Cancelar Inscrição</button>
+                <div class="ticket-info">
+                    <span><strong>Valor Total:</strong> R$ 220,00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        EVENT2U © 2025 - Todos os direitos reservados
+    </div>
+    <script src="/static/js/Meus_eventos.js"></script>
+
+</body>
+</html>
