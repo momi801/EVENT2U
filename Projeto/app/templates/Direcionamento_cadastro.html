@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVENT2U - Cadastro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Direcionamento_cadastro.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">EVENT2U</div>
+        </div>
+        
+        <div class="content">
+            <h2 class="title">Quero cadastrar...</h2>            
+            
+            <!-- ARRUMAR ESSA PARTE AQUI-->
+            <div class="option-card">
+                <a class="a-cadastro" href="{{ url_for('auth.cadastroParticipante') }}" class="option-card">
+                    <p class="option-title">COMO PARTICIPANTE</p>
+                </a>
+            </div>
+            
+            <div class="option-card">
+                <a class="a-cadastro" href="{{ url_for('auth.cadastroOrganizador') }}" class="option-card">
+                    <p class="option-title">COMO ORGANIZADOR</p>
+                </a>
+            </div>
+
+            <!-- Botão de voltar -->
+            <a href="{{ url_for('auth.login') }}" class="back-link"> ← Voltar</a>
+        </div>
+    </div>
+
+</body>
+</html>

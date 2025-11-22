@@ -1,0 +1,211 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Evento_selecionado.css') }}">
+    <title>Evento-selecionado</title>
+</head>
+<body>
+    <!-- A ideia é fazer uma página estática para todos os eventos possiveis usar apenas uma forma
+     e só trocar os conteúdos-->
+
+     <!-- NAVBAR -->   
+
+    <div class="header">
+        <div class="logo">EVENT2U</div>
+        <div class="user-info">
+            <div class="user-avatar">
+                <div class="initial">{{session.get('email', '')[:1] | upper }}</div>
+                    <div class="user-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="nav">
+        <a href="{{url_for('home.telaInicial')}}" class="nav-item">Inicio</a>
+        <a href="{{url_for('user.meusIngressos')}}" class="nav-item">Meus Ingressos</a>
+        <a href="{{url_for('user.perfilParticipante')}}" class="nav-item active">Meu perfil</a>
+    </div>
+
+    <main>      
+        <div class="container-cabecalho-evento">
+            <div class="info-evento">
+                <div class="lista-main-info">
+
+                    <!-- Informações do evento no banner -->
+                    <h1><span id="titulo-evento">{{evento.nome}}</span></h1>
+                    <span id="data-horario">{{data_hora_abertura_formatada}}</span>
+
+                </div> 
+            </div>            
+            <div class="imagem-evento">
+                <img id="foto-evento" src="{{ url_for('static', filename=evento.imagem_url) }}">
+            </div>  
+        </div>
+
+        <div class="descricao-evento">
+            <h2>Descrição do evento</h2>
+            <br>
+            <div class="container-evento">
+                <ul class="informacoes-evento">
+
+                    <!-- Datas de início e término -->
+                    <li> <span class="info-bold">Data início: </span> <span class= "desc-data-local" id="data-horario">{{data_hora_abertura_formatada}}</span></li>
+                    <li> <span class="info-bold">Data término: </span> <span class= "desc-data-local" id="data-horario">{{data_hora_termino_formatada}}</span></li>
+
+                    <!-- Local do evento -->
+                    <li><span class="info-bold">Local: </span> <span class= "desc-data-local" id="local-evento">{{evento.local}}</span></li>
+                    <br>
+                    
+                    <!-- Descrição do evento-->
+                    <li><span id="texto-descricao-evento">{{evento.descricao}}</span></li>
+                    <br>
+
+                </ul>
+
+                <div class="caixa-ingresso">
+                    <!-- Ingressos restantes do evento -->
+                    <p><span id="ingressos-restantes">{{ingressos_restantes}}</span> ingresso(s) restante(s)</p>
+                    <!-- Definir no onclick do abrirPopup() direção da página-->
+                    <button id="comprar-botao" class="botao-comprar" onclick="abrirModal()" data-evento="{{evento.id}}">Comprar ingresso</button>
+                </div>                
+                <br>
+            </div>  
+
+            <!-- quebra de linha com travessão-->
+            <br>
+            <hr>
+            <br>
+
+            <!-- ============ Informações do organizador ============ -->
+            
+            <div class = "evento-info-organizador">
+                <h2>Informações do Organizador</h2>
+                <br>
+                <ul>                    
+                    <li><!-- Nome do organizador-->                        
+                        <div class = "nome-orgnanizador">
+                            <p><strong>Nome da Empresa:</strong> {{organizador.nome}}</p>
+                        </div>
+                    </li>                    
+                    
+
+                    <h3>Contatos:</h3>
+
+                    <li><!-- Telefone do organizador -->                        
+                        <div class="telefone-organizador">                            
+                            <p><strong>Telefone:</strong> {{organizador.telefone}}</p>
+                        </div>
+                    </li>
+                    
+                    <li><!-- Email do organizador -->                        
+                        <div class= "email-organizador">                            
+                            <p><strong>Email:</strong> {{organizador.email}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>     
+
+    <!-- Área do footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sobre o Event2U</h3>
+                    <p>Plataforma completa para criação e gestão de eventos. Conectamos organizadores e participantes de forma simples e eficiente.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <a href="#">Como funciona</a>
+                    <a href="#">Preços</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contato</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Suporte</h3>
+                    <a href="#">Central de Ajuda</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Event2U. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+    
+
+    <div class='pop-confirmcao' id='popConfirmacao'>
+        <span>✅ Ingresso adquirido! Verifique sua seção "Meus ingressos"!</span>
+    </div>   
+
+    <div id="modal-ingresso" class="modal-overlay" style="display: none;">
+        <div class="popup-container" id="modal-container">
+            <div class="popup-header">
+                <h2>Compra de Ingressos</h2>
+            </div>
+            
+            <div class="popup-content">
+                
+                {% if precoIngressoInteira is not none %}
+                    <div class="ticket-option" id="option-inteira">
+                        <div class="ticket-info">
+                            <div class="ticket-name">Ingresso Inteira</div>
+                            <div class="ticket-price">
+                                {% if tem_ingresso_gratuito %}
+                                    <!-- Se for gratuito (valor 0.00) -->
+                                    <span id="preco-ingresso-inteiro">GRATUITO</span>
+                                {% else %}
+                                    <!-- Se tiver preço normal (> 0.00) -->
+                                    R$ <span id="preco-ingresso-inteiro">{{ "%.2f"|format(precoIngressoInteira)|replace('.', ',') }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="ticket-controls">
+                            <button class="quantity-btn minus" data-type="inteira"> - </button>
+                            <span class="quantity" id="qty-inteira">0</span>
+                            <button class="quantity-btn plus" data-type="inteira"> + </button>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if precoIngressoMeia is not none %}
+                    <div class="ticket-option" id="option-meia">
+                        <div class="ticket-info">
+                            <div class="ticket-name">Ingresso Meia-Entrada</div>
+                            <div class="ticket-price">
+                                R$ <span id="preco-ingresso-meia">{{ "%.2f"|format(precoIngressoMeia)|replace('.', ',') }}</span>
+                            </div>
+                        </div>
+                        <div class="ticket-controls">
+                            <button class="quantity-btn minus" data-type="meia">-</button>
+                            <span class="quantity" id="qty-meia">0</span>
+                            <button class="quantity-btn plus" data-type="meia">+</button>
+                        </div>
+                    </div>
+                {% endif %} 
+                
+                <span id="spanAlert" class="span-alerta">Selecione pelo menos um ingresso antes de confirmar.</span>                
+                
+                <div class="total-section">
+                    <div class="total-label">Total:</div>
+                    <div class="total-value">R$ <span id="total-value">0,00</span></div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary" id="confirm-btn"> Confirmar Compra </button>
+                    <button type="button" class="btn btn-secondary" id="cancel-btn" onclick="fecharModal()"> Cancelar </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+     <script src="{{ url_for('static', filename='js/Evento_selecionado.js') }}"></script>
+</body>
+</html>
