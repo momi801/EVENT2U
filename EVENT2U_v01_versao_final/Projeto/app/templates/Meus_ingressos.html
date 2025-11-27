@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Ingressos - EVENT2U</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Meus_ingressos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Cancelamento_ingresso.css') }}">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">EVENT2U</div>
+        <div class="user-info">
+            <div class="user-avatar logged-in">
+
+                <div class="user-info dropdown-trigger">
+                    {{session.get('email')[0] | upper }}
+                </div>
+
+                <!-- BOTÃO PARA LOGOUT DO ICONE DO MEU PERFIL--> 
+                
+                <div class="dropdown-menu-logout">
+
+                    <a class="dropdown-item-logout" id="dropdownPerfil" href="{{url_for('user.perfilParticipante')}}">👤 Meu Perfil</a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item-logout" id="dropDownLogout"  href="{{url_for('auth.logout')}}">🚪 Sair</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="nav">
+        <a href="{{url_for('home.telaInicial')}}" class="nav-item">Inicio</a>
+        <a href="{{url_for('user.meusIngressos')}}" class="nav-item active">Meus Ingressos</a>
+        <a href="{{url_for('user.perfilParticipante')}}" class="nav-item">Meu perfil</a>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">Meus Ingressos</h2>
+
+        
+            {% if compras|length == 0 %}
+                <span class="sem-ingresso" >Você ainda não possui nenhum evento!</span>
+            {%  else %}
+                {% for compra, ingresso, evento in compras %}
+                    <div class="ticket">
+                        <div class="event-name">{{ evento.nome }}</div>
+
+                        <div class="ticket-info">
+
+                            <div class="col">
+                                <div class="info-item">
+                                    <!-- ID EVENTO -->
+                                    <strong>Nº Ingresso: </strong><span class="info-value">{{ ingresso.id }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <!-- DATA DE INICIO E TERMINO DO EVENTO -->
+                                    <strong>Data início: </strong><span>{{ data_horario_inicio }}</span><br>
+                                    <strong>Data término: </strong><span>{{ data_horario_fim }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <!-- LOCAL EVENTO -->
+                                    <strong>Local: </strong><span>{{ evento.local }}</span>
+                                </div>
+                            </div>
+                            
+                            <!-- INFORMAÇÕES DO COMPRADOR -->
+                            <div class="col">
+                                <!-- NOME -->
+                                <div class="info-item">
+                                    <span><strong>Nome:</strong> {{ participante.nome }}</span>
+                                </div>
+                                <!-- CPF -->
+                                <div class="info-item">
+                                    <span><strong>CPF:</strong> {{ participante.cpf }}</span>
+                                </div>
+
+                                <!-- VALOR DA COMPRA -->
+                                <div class="info-item">
+                                    <span><strong>Valor Total:</strong> R$ {{ "%.2f" | format(ingresso.valor) }}</span>
+                                </div>
+                            </div>
+
+                            <!-- QR CODE DA COMPRA -->
+                            <div class="qr-col">
+                                <img src="{{ evento.qr_path }}" alt="QR Code do evento" width="150">
+                                <p><strong>Código do ingresso:</strong> {{ evento.id }}</p>
+                            </div>
+                            
+                        </div>
+
+                        <div class="ticket-status">
+                            <!-- STATTUS DO INGRESSO-->
+                            {% if compra.status_compra == 'pago' %}
+                                <span class="status-badge status-confirmed">Pago</span>
+                                <a class="btn-a btn-cancel-list abrir-popup" href="#" >Cancelar Inscrição</a>
+                            {% else %}                        
+                                <span class="status-badge status-canceled">Cancelado</button>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% endif %}   
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+
+                <div class="footer-section">
+                    <h3>Sobre o Event2U</h3>
+                    <p>Plataforma completa para criação e gestão de eventos. Conectamos organizadores e participantes de forma simples e eficiente.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <a href="#">Como funciona</a>
+                    <a href="#">Preços</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contato</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Suporte</h3>
+                    <a href="#">Central de Ajuda</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+
+            <div class="copyright">
+                &copy; 2025 Event2U. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+    
+
+    <!-- ================================== MODAL CANCELAMENTO ================================= -->
+    <div id="modal-cancelamento" class="popup-overlay" style="display: none;">
+        <div class="popup-container">
+            <div class="popup-header">
+                <h2>Cancelar Compra de Ingressos</h2>
+                <p>Confirme o cancelamento abaixo</p>
+            </div>
+            
+            <div class="popup-content">
+                
+                <p>Tem certeza que deseja cancelar a compra dos ingressos? Esta ação não pode ser desfeita!</p>
+                
+                <div class="ticket-details">
+                    <h3>Detalhes da Compra</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Evento:</span>
+                        <span class="detail-value">Nome evento</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Data:</span>
+                        <span class="detail-value">horario</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Valor Total:</span>
+                        <span class="detail-value">valor</span>
+                    </div>
+                </div>
+                
+                <div class="refund-info">
+                    <h3>Informações de Reembolso</h3>
+                    <p>O valor será reembolsado em até 7 dias úteis na forma de pagamento original.</p>
+                </div>
+                
+                <div class="popup-buttons">
+                    <button id="btn-fechar-popup" class="btn btn-cancel-popup">Manter Ingresso</button>
+                    <button id="btn-confirmar" class="btn btn-confirm-popup">Confirmar Cancelamento</button>
+                </div>
+                
+                <p class="terms">
+                    Ao confirmar, você concorda com nossos <a href="#">Termos de Cancelamento</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/Perfil_organizador.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/Cancelamento_ingresso.js') }}"></script>
+</body>
+</html>

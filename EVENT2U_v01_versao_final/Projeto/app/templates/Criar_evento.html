@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Evento - Event2U</title>
+
+    <!-- Link para o CSS externo -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Criar_evento.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+
+            <div class="logo">Event<span>2U</span></div>
+
+            <div class="right-content">
+                <nav>
+                    <ul>
+                        <li><a href="{{url_for('admin.menuOrganizador')}}">Meus Eventos</a></li>
+                        <li><a href="{{url_for('admin.criarEvento')}}">Criar Evento</a></li>
+                        <li><a href="{{ url_for('admin.perfilOrganizador') }}"><i class="fas fa-user-circle"></i> Meu Perfil</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+        </div>
+
+        </div>
+    </header>
+
+    <!-- ========================== Main Content ========================== -->
+    <div class="container">
+        <div class="main-content">
+
+
+            <!-- ==========================  Sidebar  ========================== -->
+            <div class="sidebar">
+                <h3>Menu do Organizador</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="{{  url_for('admin.menuOrganizador')  }}"><i class="fas fa-calendar-alt"></i> Meus Eventos</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-plus-circle"></i> Criar Evento</a></li>
+                </ul>
+            </div>          
+            
+            <!-- ========================== Content Area ========================== -->
+            <div class="content-area">
+                <div class="page-header">
+                    <button class="btn btn-back-menu"><i class="fas fa-arrow-left"></i> <a href="{{ url_for('admin.menuOrganizador') }}">Voltar</a></button>
+                    <h1>Criar Novo Evento</h1>
+                </div>
+
+                <br>
+
+                <div class="form-container">
+                    <form id="eventForm" method="POST" enctype="multipart/form-data" action="{{ url_for('admin.criarEvento') }}">
+                        <!-- ========================== Informações Básicas ========================== -->
+                        <div class="form-section">
+                            <br>
+                            <h2><i class="fas fa-info-circle"></i> Informações Básicas</h2>
+
+                            <br>
+                            
+                            <div class="form-group">
+                                <label for="eventName">Nome do Evento *</label>
+                                <input type="text"  name="eventName" id="eventName" class="form-control" placeholder="Ex: Conferência de Tecnologia 2023" required>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group">
+                                <label for="eventDetails">Descrição do evento *</label>
+                                <textarea type="text-area"  name="eventDetails" id="eventDetails" class="form-control" placeholder="Escreva aqui..." required></textarea>
+                            </div>
+                            
+                            <br>
+
+                            <!-- ==========================  Categoria Evento ========================== -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="eventCategory">Categoria *</label>
+                                    <select name="eventCategory" id="eventCategory" class="form-control" required>
+                                        <option value="">Selecione uma categoria</option>
+                                        <option value="tecnologia">Tecnologia</option>
+                                        <option value="negocios">Negócios</option>
+                                        <option value="musica">Música</option>
+                                        <option value="arte">Arte & Cultura</option>
+                                        <option value="esportes">Esportes</option>
+                                        <option value="educacao">Educação</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                </div>
+
+                                <!-- ========================== Modalidade do Evento ========================== -->
+                                <div class="form-group">
+                                    <label for="eventType">Tipo de Evento *</label>
+                                    <select name="eventType" id="eventType" class="form-control" required>
+                                        <option value="">Selecione o tipo</option>
+                                        <option value="presencial">Presencial</option>
+                                        <option value="online">Online</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ==========================  Data e Local ========================== -->
+                        <div class="form-section">
+
+                            <br>
+
+                            <h2><i class="fas fa-calendar-alt"></i> Data e Local</h2>                         
+
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="eventStartDate">Data de Início *</label>
+                                    <input type="datetime-local" id="eventStartDate" name="eventStartDate" class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="eventEndDate">Data de Término *</label>
+                                    <input type="datetime-local" id="eventEndDate" name="eventEndDate" class="form-control" required>
+                                </div>
+                            </div>                            
+
+
+                            <!-- ========================== Local do evento ==========================-->
+                            <div class="form-group" id="locationField">
+                                <br>
+                                <label for="eventLocation">Local do Evento *</label>
+                                <input type="text" name="eventLocate" id="eventLocate" class="form-control" placeholder="Endereço completo ou link online">
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <!-- ==========================  Imagem  ========================== -->
+                        <label for="eventLocation">Capa do evento*</label>
+                        <br>
+                        <br>
+                        <div class="image-dropzone" id="dropzone">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Clique ou arraste uma imagem para cá</p>
+                            <p>Imagens apenas em formatos JPNG ou PNG!</p>
+                            <span>Recomendado: 1200x600px</span>
+                        </div>
+                        <input type="file" name="eventImg" id="eventImage" accept="image/png, image/jpg, image/jpeg" hidden required>
+
+                        <div class="image-preview" id="preview" style="display: none;">
+                            <img id="previewImg" src="" alt="">
+                            <button type="button" id="changeImage" class="btn-changeImg">Alterar Imagem</button>
+                        </div>
+
+                        <br>
+
+                        <div class="form-section">
+
+                        <!-- INGRESSOS -->    
+                        <h2><i class="fas fa-ticket-alt"></i> Ingressos</h2>
+
+                        <div class="ticket-types" id="ticketTypes">
+                            <div class="form-group">
+                                <label>Quantidade de ingressos</label>
+                                <input type="number" id="qtd-total" name="qtd-total" class="form-control" value="0" min="0">
+                                <br>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Possui ingressos gratuitos?</label>
+                                <label class="switch">
+                                    <input name="possui_gratuito" type="checkbox" id="toggle-gratuito" value="sim">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <!-- ==================== INGRESSO INTEIRO ==================== -->
+                            <br>
+                            <div class="ticket-type">
+
+                                <div class="ingresso-inteiro">
+                                    <span class="ticket-title">Ingresso Inteiro</span>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Preço (R$)</label>
+                                        <input type="number" id="preco-inteiro" name="precoInteiro" class="form-control" min="0" step="0.01" value="0.00">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Quantidade</label>
+                                        <input type="number" id="qtd-inteiro" name="qtdInteiro" class="form-control" value="0" min="0" readonly>
+                                    </div>
+                                </div>
+
+                                <!-- ==================== INGRESSO MEIA ==================== -->
+
+                                <br> 
+
+                                <div class="meia-bloco">
+                                    <div class="ingresso-meia">
+                                        <span class="ticket-title">Meia-Entrada <i class="fas fa-info-circle info-icon"
+                                        data-tooltip="De acordo com a Lei Federal 12.933/2013, pelo menos 40% dos ingressos devem ser disponibilizados como meia-entrada.">
+                                        </i></span>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Preço (R$)</label>
+                                            <input type="number" id="preco-meia" name="precoMeia" class="form-control" min="0" step="0.01" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Quantidade</label>
+                                            <input type="number" name="qtdMeia" class="form-control" min="0" value='0' readonly id="qtd-meia">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    
+                        <div id="erro-msg" class="alert error" style="display:none;"></div>
+
+                        <!-- ==========================  Submit  ========================== -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn-submit"> + Criar Evento</button>
+                            <button type="reset" class="btn-reset"> Limpar campos</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================== Script ========================== -->
+    <script src="{{ url_for('static', filename='js/Criar_evento.js') }}"></script>
+</body>
+</html>

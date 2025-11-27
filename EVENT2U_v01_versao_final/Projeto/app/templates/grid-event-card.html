@@ -1,0 +1,73 @@
+                    
+                    {%if qtdeEventos == 0%}
+                        {% for i in eventos-do-organizador %}
+                    
+                            <div class="event-card">
+                                <div class="event-image" style="background-image: url(
+                                    '{{ caminho-da-img-do-evento }}');">
+                                
+                                </div>
+                                <div class="event-details">
+                                    <h3>{{ titulo-evento }}</h3>
+                                    <div class="event-meta">
+                                        <div><i class="far fa-calendar"></i> {{ data-mes-ano-formatado }}</div>
+                                        <div><i class="far fa-user"></i> {{ qtde-inscrito}} participantes </div>
+                                    </div>
+                                    <p>{{ descricao-breve-evento }}</p>
+                                    <div class="event-actions">
+                                        <span class="event-status status-active">{{ status-evento}}</span>
+                                        <button class="btn btn-secondary">Gerenciar</button>
+                                    </div>
+                                </div>
+                            </div>
+                    {% else %}
+                            f'Você não tem eventos ainda!' 
+
+
+<div class="event-card">
+                        <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=600&q=80');"></div>
+                        <div class="event-details">
+                            <h3>Workshop de Marketing Digital</h3>
+                            <div class="event-meta">
+                                <div><i class="far fa-calendar"></i> 22 Out 2023</div>
+                                <div><i class="far fa-user"></i> 120 participantes</div>
+                            </div>
+                            <p>Aprenda estratégias eficazes de marketing digital para impulsionar seu negócio.</p>
+                            <div class="event-actions">
+                                <span class="event-status status-finished">Finalizado</span>
+                                <button class="btn btn-secondary">Ver Relatório</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+<!-- FOOOTERR-->
+
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sobre o Event2U</h3>
+                    <p>Plataforma completa para criação e gestão de eventos. Conectamos organizadores e participantes de forma simples e eficiente.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <a href="#">Como funciona</a>
+                    <a href="#">Preços</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contato</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Suporte</h3>
+                    <a href="#">Central de Ajuda</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Event2U. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>

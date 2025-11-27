@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event2U - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Menu_organizador.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Event<span>2U</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('admin.menuOrganizador') }}">Meus Eventos</a></li>
+
+                        <li><a href="{{ url_for('admin.criarEvento') }}">Criar Evento</a></li>
+
+                        <li>
+                            <div class="user-info logged-in">
+                                <div class="user-info dropdown-trigger"> 
+                                    <a href="{{ url_for('admin.perfilOrganizador') }}"><i class="fas fa-user-circle"></i> Meu Perfil</a>
+                                </div>                  
+                                <div class="dropdown-menu-logout">
+                                    <!-- BOTÃO PARA LOGOUT DO ICONE DO MEU PERFIL-->        
+                                    <a class="dropdown-item-logout" id="dropdownPerfil" href="{{url_for('admin.perfilOrganizador')}}">👤 Meu Perfil</a>
+
+                                    <div class="dropdown-divider"></div>
+
+                                    <a class="dropdown-item-logout" id="dropDownLogout"  href="{{url_for('auth.logout')}}">🚪 Sair</a>
+                                </div>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </nav>                
+            </div>
+        </div>
+    </header>        
+
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>Menu do Organizador</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="event2u-meus-eventos.html"><i class="fas fa-calendar-alt"></i> Meus Eventos</a></li>
+                    <li><a href="{{ url_for('admin.criarEvento') }}"><i class="fas fa-plus-circle"></i> Criar Evento</a></li>
+                </ul>
+            </div>
+
+            
+
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    
+                    <a href="{{ url_for('admin.criarEvento') }}">
+                        <button class="btn" onclick="(url_for(admin.criarEvento))">
+                            <i class="fas fa-plus"></i> Criar Novo Evento
+                        </button>
+                    </a>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <h3>Total de Eventos</h3>
+                        <div class="number">
+                            <p class="numero-eventos" id="qtdeEventos"> {{ num_eventos_total }}</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Eventos Ativos</h3>
+                        <div class="number">
+                            <p class="numero-eventos-ativos" id="qtdeEventosAtivos"> {{ num_eventos_ativos }}</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Taxa de Conversão</h3>
+                        <div class="number">
+                            <p class="numero-conversao" id="numConversao">{{ media_conversao_eventos }}%</p>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- MODAL DE CONFIRMAÇÃO PARA CANCELAR UM EVENTO-->
+                <div id="confirmation-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-button">&times;</span>
+                        <h3>Confirmação de Cancelamento</h3>
+                        <p>Atenção! A mudança de status para <strong>cancelado</strong> é <strong>irreversível</strong> e afetará a venda de ingressos.</p>
+                        <br>
+                        <p>Tem <strong>certeza</strong> que deseja prosseguir?</p>
+                        <br>
+                        <div class="modal-actions">
+                            <button id="modal-confirm-btn" class="btn btn-danger">Sim, <strong>CANCELAR EVENTO</strong></button>
+                            <button id="modal-cancel-btn" class="btn btn-secondary">Não, <strong>MANTER ATIVO</strong></button>
+                        </div>
+                        <input type="hidden" id="modal-event-id">
+                        <input type="hidden" id="modal-new-status">
+                    </div>
+                </div>
+
+
+                <!-- Events Grid -->
+                <h2 style="margin-bottom: 20px; color: #25344F;">Eventos Recentes</h2>
+                <div class="events-grid">
+
+                    {% if eventos|length == 0 %}
+                        <p class="no-events-message">Você não tem eventos criados ainda. Clique em "Criar Novo Evento" para começar!</p>
+                    {% else %}
+                        {% for evento in eventos %}
+                            <div class="event-card">
+
+                                <!-- IMAGEM (CAPA) DO EVENTO -->
+                                <img src="{{ url_for('static', filename=evento.imagem_url) }}" 
+                                    alt="Capa do evento {{ evento.nome }}" class="event-image">
+
+                                    <!-- NOME DO EVENTO -->
+                                <div class="event-details">
+                                    <h3>{{ evento.nome }}</h3>
+                                    <div class="event-meta">
+                                        <div><i class="far fa-calendar"></i> {{ evento.data_inicio_formatada }}</div>
+                                        <div><i class="far fa-user"></i> {{ evento.qtd_participantes }} participantes</div>
+                                    </div>
+                                    
+                                    <!-- LOCAL DO EVENTO -->
+                                    <div class="event-locate">
+                                        <!-- cor #617891 -->
+                                        <div><i class="far fa-compass"></i> {{ evento.local }} </div>
+                                    </div>
+
+                                    <!-- STATUS DO EVENTO -->
+                                    <div class="event-actions {% if evento.status_evento == 'ativo' %}dropdown{% endif %}">
+                                        <span class="event-status {% if evento.status_evento == 'ativo' %}status-active{% elif evento.status_evento == 'cancelado' %}status-draft{% else %}status-finished{% endif %}">
+                                            {{ evento.status_evento }}
+                                        </span>
+                                        
+                                        {% if evento.status_evento == 'ativo' %}
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle">Gerenciar</button>
+                                                <div class="dropdown-menu">
+                                                    <p> <strong>Mudar o status do evento para:</strong> </p>
+                                                    <a class="dropdown-item status-btn cancelar-evento" href="#" data-evento-id="{{ evento.id }}" data-status="cancelado">Cancelado</a>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <button class="btn btn-secondary" disabled>Ver Relatório</button>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
+         </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <script src="{{ url_for('static', filename='js/Menu_organizador.js') }}"></script>
+</html>

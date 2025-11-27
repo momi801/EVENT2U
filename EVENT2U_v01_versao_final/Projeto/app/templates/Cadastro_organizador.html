@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVENT2U - Cadastro Organizador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Cadastro_organizador.css') }}">
+</head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <a href="{{ url_for('auth.login') }}" class="back-btn">← Voltar</a>
+                <div class="logo">EVENT2U</div>
+            </div>           
+
+            <div class="content">
+                <h2 class="section-title">Dados da Empresa</h2>
+                <form action="{{ url_for('auth.cadastroOrganizador') }}" method="POST" id="form-cadastro">    
+                    <div class="form-group">
+                        <label for="company-name">Nome da empresa</label>
+                        <input type="text" name="company-name" id="company-name" placeholder="Digite o nome da empresa" required>
+                    </div>
+                    
+                    <br>
+
+                    <div class="form-group">
+                        <label for="cnpj">CNPJ</label>
+                        <input type="text" name="cnpj" id="cnpj" placeholder="Digite seu CNPJ" required>
+                    </div>
+                    
+                    <br>
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" id="email" placeholder="Digite seu e-mail" required>
+                    </div>
+                    
+                    <br>
+        
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" name="phone" id="phone" placeholder="Digite o telefone" required>  
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label for="password">Senha</label> 
+                        <input type="password" name="password" id="password" placeholder="Digite uma senha" required><br>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Confirme sua senha</label> 
+                        <input type="password" id="confirm-password" placeholder="Digite novamente a senha" required>
+                        <span id="senha-msg" class="erro-senha"></span> <br>
+                    </div> <br>
+
+                    {% if erro %}
+                        <p class="erro">{{ erro }}</p>
+                    {% endif %}
+
+                    <div class="buttons">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <button type="reset" class="btn btn-secondary">Limpar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='js/Cadastro_organizador.js') }}"></script>
+    </body>
+</html>
