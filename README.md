@@ -1,5 +1,5 @@
 # EVENT2U
-Resolução do trabalho de APSOO sobre a aplicação desktop EVENT2U 
+Resolução do trabalho de APSOO sobre a aplicação hibrída (com elementos desktop e web) EVENT2U 
 
 
 Como rodar a aplicação:
