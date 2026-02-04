@@ -18,7 +18,7 @@ Resolução do trabalho de APSOO sobre a aplicação hibrída (com elementos des
 
 **Desenvolvedores do projeto:**
 
-Louise Mayumi Takigawa Pereira (back-end)
-Maria Eduarda Justino Rodrigues (front-end)
-João Vitor Costa Braga (back-end)
-Mariana Paulino Da Silva (documentação)
+- Louise Mayumi Takigawa Pereira (back-end)
+- Maria Eduarda Justino Rodrigues (front-end)
+- João Vitor Costa Braga (back-end)
+- Mariana Paulino Da Silva (documentação)
