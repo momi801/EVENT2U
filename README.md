@@ -2,7 +2,8 @@
 Resolução do trabalho de APSOO sobre a aplicação hibrída (com elementos desktop e web) EVENT2U 
 
 ===========================================================================
-Como rodar a aplicação:
+
+**Como rodar a aplicação:**
 
 1. Baixe os requirements:
 (no terminal escreva)
@@ -14,7 +15,8 @@ Como rodar a aplicação:
 3. Aplicação aberta! 
 
 ===========================================================================
-Desenvolvedores do projeto:
+
+**Desenvolvedores do projeto:**
 
 Louise Mayumi Takigawa Pereira (back-end)
 Maria Eduarda Justino Rodrigues (front-end)
