@@ -3,16 +3,39 @@ Resolução do trabalho de APSOO sobre a aplicação hibrída (com elementos des
 
 ===========================================================================
 
-**Como rodar a aplicação:**
 
-1. Baixe os requirements:
-(no terminal escreva)
---> pip install -r requirements.txt
+### **Como rodar a aplicação**
 
-2. Rode a aplicação: 
---> python Projeto/run.py
+Siga os passos abaixo no seu terminal:
 
-3. Aplicação aberta! 
+1. **Crie e ative o ambiente virtual:**
+```bash
+# Criar o ambiente
+python -m venv venv
+
+# Ativar (Windows)
+.\venv\Scripts\activate
+
+# Ativar (Linux/Mac)
+source venv/bin/activate
+
+```
+
+2. **Instale as dependências:**
+```bash
+pip install -r requirements.txt
+
+```
+
+3. **Rode a aplicação:**
+```bash
+python Projeto/run.py
+
+```
+
+**Pronto! A aplicação será iniciada.**
+
+---
 
 ===========================================================================
 
